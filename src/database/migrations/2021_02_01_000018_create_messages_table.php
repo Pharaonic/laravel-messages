@@ -18,7 +18,8 @@ class CreateMessagesTable extends Migration
 
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->string('mobile_code')->nullable();
+
+            $table->string('mobile_country_code')->nullable();
             $table->string('mobile_number')->nullable();
 
             $table->string('subject')->nullable();
