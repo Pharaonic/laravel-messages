@@ -11,7 +11,7 @@ use Pharaonic\Laravel\Files\HasFiles;
  * @property integer $id
  * @property string $name
  * @property string $email
- * @property string $mobile_code
+ * @property string $mobile_country_code
  * @property string $mobile_number
  * @property string $subject
  * @property string $message
@@ -33,7 +33,8 @@ class Message extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'mobile_code', 'mobile_number',
+        'name', 'email',
+        'mobile_country_code', 'mobile_number',
         'subject', 'message',
         'IP', 'has_read',
         'sender_type', 'sender_id'
@@ -90,15 +91,15 @@ class Message extends Model
         $user = $request->user();
 
         $msg = self::create([
-            'name'              => $request->name ?? $user->name ?? null,
-            'email'             => $request->email ?? $user->email ?? null,
-            'mobile_code'       => $request->mobile_code ?? $user->mobile_code ?? null,
-            'mobile_number'     => $request->mobile_number ?? $user->mobile_number ?? null,
-            'subject'           => $request->subject ?? null,
-            'message'           => $request->message,
-            'IP'                => $request->ip(),
-            'sender_type'       => $user ? get_class($user) : null,
-            'sender_id'         => $user ? $user->{$user->getKeyName()} : null,
+            'name'                => $request->name ?? $user->name ?? null,
+            'email'               => $request->email ?? $user->email ?? null,
+            'mobile_country_code' => $request->mobile_country_code ?? $user->mobile_country_code ?? null,
+            'mobile_number'       => $request->mobile_number ?? $user->mobile_number ?? null,
+            'subject'             => $request->subject ?? null,
+            'message'             => $request->message,
+            'IP'                  => $request->ip(),
+            'sender_type'         => $user ? get_class($user) : null,
+            'sender_id'           => $user ? $user->{$user->getKeyName()} : null,
         ]);
 
         if ($request->hasFile('attachment'))
